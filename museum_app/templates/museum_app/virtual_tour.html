@@ -1,0 +1,31 @@
+{% extends 'museum_app/base.html' %}
+{% load static %}
+
+{% block title %}Виртуальный тур — Музей космонавтики{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold gradient-text">Виртуальный тур по музею</h1>
+        <p class="lead">Исследуйте окрестности музея, не выходя из дома</p>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="glass-panel p-3">
+                <iframe
+                     width="100%"
+                     height="550"
+                     style="border:0; border-radius: 20px;"
+                     loading="lazy"
+                     allowfullscreen
+                     referrerpolicy="no-referrer-when-downgrade"
+                     src="https://www.google.com/maps/embed?pb=!4v1778694139317!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0s5LUt6cEFF!2m2!1d55.8230020326324!2d37.63959394893865!3f255.89141377769417!4f-21.661321572290973!5f0.7820865974627469">
+</iframe>
+            </div>
+            <p class="text-muted text-center mt-3">
+                <i class="bi bi-arrow-return-left"></i> Управляйте панорамой мышью или пальцем
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

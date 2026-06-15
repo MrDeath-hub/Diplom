@@ -1,0 +1,24 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 20px auto;">
+    <h1>Ответить на сообщение от {{ message.name }}</h1>
+    <p><strong>Email:</strong> {{ message.email }}</p>
+    <p><strong>Текст сообщения:</strong></p>
+    <blockquote style="background: #f4f4f4; padding: 15px; border-left: 4px solid #0ff; border-radius: 10px;">
+        {{ message.message|linebreaks }}
+    </blockquote>
+    <form method="post">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label for="subject">Тема письма:</label>
+            <input type="text" name="subject" id="subject" value="Ответ из музея космонавтики" style="width:100%; padding: 8px;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="reply_text">Текст ответа:</label>
+            <textarea name="reply_text" id="reply_text" rows="8" style="width:100%; padding: 8px;"></textarea>
+        </div>
+        <button type="submit" class="button" style="background: #0ff; color: #000; border: none; padding: 10px 20px;">Отправить ответ</button>
+    </form>
+</div>
+{% endblock %}

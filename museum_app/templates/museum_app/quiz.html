@@ -1,0 +1,14 @@
+{% extends 'museum_app/base.html' %}
+{% load static %}
+
+{% block title %}Космическая викторина — Музей космонавтики{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div id="quiz-container"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'museum_app/js/quiz.js' %}"></script>
+{% endblock %}

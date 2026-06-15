@@ -1,0 +1,95 @@
+{% extends 'museum_app/base.html' %}
+{% load static %}
+
+{% block title %}Контакты — Музей космонавтики{% endblock %}
+
+{% block content %}
+<div class="text-center my-4">
+    <h1 class="gradient-text display-4 fw-bold">Контакты</h1>
+    <p class="lead">Свяжитесь с нами или пришлите сообщение</p>
+</div>
+
+<div class="row">
+    <!-- Левая колонка: контакты и карта -->
+    <div class="col-md-5 mb-4">
+        <div class="glass-panel p-4">
+            <h3 class="gradient-text">Музей космонавтики</h3>
+            <p><strong>Адрес:</strong><br>
+            г. Москва, проспект Мира, 111<br>
+            Метро ВДНХ (выход к монументу)</p>
+
+            <p><strong>Телефон:</strong><br>
+            {{ phone|default:"+7 (499) 750-23-00" }}</p>
+
+            <p><strong>Email:</strong><br>
+            {{ email|default:"info@kosmo-museum.ru" }}</p>
+
+            <p><strong>Часы работы:</strong><br>
+            Вторник–Воскресенье: 10:00 – 19:00<br>
+            Четверг: 10:00 – 21:00<br>
+            Понедельник – выходной</p>
+
+            <p><small>Льготные билеты и правила посещения уточняйте по телефону.</small></p>
+        </div>
+
+        <div class="glass-panel p-2 mt-4" style="position: relative; overflow: hidden; border-radius: 24px;">
+            <div style="position: relative; width: 100%;">
+                <iframe 
+                    src="https://yandex.ru/map-widget/v1/?ll=37.639752%2C55.822751&z=17&pt=37.639752,55.822751,flag" 
+                    width="100%" 
+                    height="300" 
+                    style="border:0; border-radius: 20px;" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="text-center small mt-2"> Наведите на карту, чтобы приблизить</p>
+        </div>
+    </div>
+
+    <div class="col-md-7 mb-4">
+        <div class="glass-panel p-4">
+            <h3 class="gradient-text">Напишите нам</h3>
+            <p>Заполните форму, и мы обязательно ответим вам в ближайшее время.</p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_name" class="form-label">Ваше имя *</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <div class="text-danger small">{{ form.name.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email *</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="text-danger small">{{ form.email.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_message" class="form-label">Сообщение *</label>
+                    {{ form.message }}
+                    {% if form.message.errors %}
+                        <div class="text-danger small">{{ form.message.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-send"></i> Отправить сообщение
+                    </button>
+                </div>
+            </form>
+
+            <hr class="bg-secondary my-4">
+            <p class="small text-center">
+                <i class="bi bi-shield-check"></i> Ваши данные в безопасности и не будут переданы третьим лицам.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

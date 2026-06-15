@@ -1,0 +1,165 @@
+{% extends 'museum_app/base.html' %}
+{% load static %}
+
+{% block title %}Музей космонавтики{% endblock %}
+
+{% block content %}
+<div class="text-center my-5 animated-title">
+    <h1 class="display-3 fw-bold gradient-text">Музей космонавтики</h1>
+    <p class="lead">Добро пожаловать в мир космических открытий</p>
+</div>
+
+<div id="mainCarousel" class="carousel slide mb-5 shadow-lg rounded-4 overflow-hidden" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/media/glavnoe.jpg" class="d-block w-100" alt="Музей">
+        </div>
+        <div class="carousel-item">
+            <img src="/media/ecso.jpg" class="d-block w-100" alt="Экспонаты">
+        </div>
+        <div class="carousel-item">
+            <img src="/media/raketa.jpg" class="d-block w-100" alt="Ракета">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<div class="row text-center my-5">
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="p-3 glass-panel">
+            <h2 class="display-5 gradient-text">50+</h2>
+            <p>лет истории</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="p-3 glass-panel">
+            <h2 class="display-5 gradient-text">100 000+</h2>
+            <p>экспонатов</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="p-3 glass-panel">
+            <h2 class="display-5 gradient-text">8</h2>
+            <p>выставочных залов</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+        <div class="p-3 glass-panel">
+            <h2 class="display-5 gradient-text">300 000+</h2>
+            <p>посетителей в год</p>
+        </div>
+    </div>
+</div>
+
+<div class="row my-5 align-items-center">
+    <div class="col-md-6">
+        <h2 class="gradient-text">Добро пожаловать в мир космоса</h2>
+        <p class="lead">Музей космонавтики — это место, где оживает история покорения Вселенной.</p>
+        <p>Уникальные экспонаты: спускаемые аппараты, скафандры, личные вещи Юрия Гагарина, Сергея Королёва. Интерактивные зоны и 3D-кинотеатр.</p>
+        <a href="{% url 'museum_app:about' %}" class="btn btn-primary btn-lg">Подробнее о музее</a>
+    </div>
+    <div class="col-md-6">
+        <img src="/media/glavnoe.jpg" class="img-fluid rounded shadow" alt="Зал музея">
+    </div>
+</div>
+
+<div class="row my-5 text-center glass-panel p-4">
+    <div class="col-12">
+        <h2 class="mb-4 gradient-text">Почему выбирают нас</h2>
+    </div>
+    <div class="col-md-4 mb-3">
+        <span class="display-1">🚀</span>
+        <h4>Уникальные экспонаты</h4>
+        <p>Подлинные образцы космической техники.</p>
+    </div>
+    <div class="col-md-4 mb-3">
+        <span class="display-1">📚</span>
+        <h4>Интерактивные программы</h4>
+        <p>Лекции, мастер-классы, виртуальные экскурсии.</p>
+    </div>
+    <div class="col-md-4 mb-3">
+        <span class="display-1">🧭</span>
+        <h4>Виртуальный тур 360°</h4>
+        <p>Прогулка по окрестностям музея прямо из дома.</p>
+    </div>
+</div>
+
+<h2 class="text-center my-5 gradient-text">Фотогалерея</h2>
+<div class="row gy-4">
+    {% for img in gallery_images|slice:":6" %}
+    <div class="col-md-4 col-sm-6">
+        <div class="card h-100 border-0 glass-panel">
+            <img src="{{ img.image.url }}" class="card-img-top holo-img" alt="{{ img.title }}" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="{{ img.image.url }}">
+            <div class="card-body text-center">
+                <p class="card-text">{{ img.title|default:"Момент из истории" }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p>Фотографии загружаются. Зайдите в админку и добавьте изображения в галерею.</p>
+    </div>
+    {% endfor %}
+</div>
+
+<hr class="my-5">
+<h2 class="text-center mb-4 gradient-text">Последние новости</h2>
+<div class="row">
+    {% for news in news_list %}
+    <div class="col-md-4 mb-3">
+        <div class="card h-100 tilt-card">
+            {% if news.preview_image %}
+                <img src="{{ news.preview_image.url }}" class="card-img-top" alt="{{ news.title }}">
+            {% else %}
+                <div class="card-img-top d-flex align-items-center justify-content-center bg-secondary text-white" style="height: 200px;">
+                    📷 Нет фото
+                </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ news.title }}</h5>
+                <p class="card-text">{{ news.short_text|truncatechars:100 }}</p>
+                <a href="{% url 'museum_app:news_detail' news.slug %}" class="btn btn-primary">Подробнее</a>
+            </div>
+            <div class="card-footer text-muted">{{ news.date_published|date:"d.m.Y" }}</div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p>Новостей пока нет. Зайдите в админку и добавьте первую новость.</p>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('show.bs.modal', function(event) {
+            const img = event.relatedTarget;
+            const url = img.getAttribute('data-img-url');
+            document.getElementById('modalImage').src = url;
+        });
+    }
+</script>
+{% endblock %}
+{% endblock %}

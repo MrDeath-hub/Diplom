@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ответ из музея космонавтики</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a0f2a;
+            font-family: 'Segoe UI', 'Montserrat', Arial, sans-serif;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: rgba(10, 15, 42, 0.95);
+            border-radius: 28px;
+            border: 1px solid #0ff;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #0a0f2a, #1a2a5a);
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid #0ff;
+        }
+        .header h1 {
+            margin: 0;
+            color: #0ff;
+            font-size: 28px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #0ff;
+        }
+        .content {
+            padding: 30px;
+            color: #f0f0f0;
+        }
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .message-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #0ff;
+            padding: 15px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        .reply-text {
+            color: #ffcc99;
+            font-style: italic;
+            line-height: 1.5;
+        }
+        .footer {
+            background: #050814;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #aaa;
+            border-top: 1px solid #0ff;
+        }
+        .social a {
+            color: #0ff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .contacts {
+            margin-top: 15px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>🚀 Музей космонавтики</h1>
+        </div>
+        <div class="content">
+            <div class="greeting">
+                Здравствуйте, <strong>{{ name }}</strong>!
+            </div>
+            <p>Администратор музея ответил на ваше обращение:</p>
+            <div class="message-box">
+                <div class="reply-text">
+                    {{ reply_text|linebreaks }}
+                </div>
+            </div>
+            <p>С уважением,<br>Команда Музея космонавтики</p>
+        </div>
+        <div class="footer">
+            <div class="social">
+                <a href="https://vk.com/kosmo_museum">VK</a> |
+                <a href="https://t.me/kosmo_museum">Telegram</a> |
+                <a href="https://youtube.com/user/KosmoMuseum">YouTube</a>
+            </div>
+            <div class="contacts">
+                📍 Москва, проспект Мира, 111<br>
+                📞 +7 (499) 750-23-00<br>
+                ✉️ <a href="mailto:info@kosmo-museum.ru" style="color:#0ff;">info@kosmo-museum.ru</a>
+            </div>
+            <p>© {% now "Y" %} Музей космонавтики. Все права защищены.</p>
+        </div>
+    </div>
+</body>
+</html>

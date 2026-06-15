@@ -1,0 +1,61 @@
+{% extends 'museum_app/base.html' %}
+{% load static %}
+
+{% block title %}О музее — Музей космонавтики{% endblock %}
+
+{% block content %}
+<h1 class="gradient-text mb-4">О музее</h1>
+
+<div class="row">
+    <div class="col-12">
+        <h2 class="gradient-text">История музея</h2>
+        <p>Мемориальный музей космонавтики был открыт 10 апреля 1981 года — к 20-летию полёта Юрия Гагарина. Он расположен в стилобате монумента «Покорителям космоса» на проспекте Мира. Идея создания музея возникла ещё в 1960-х годах, но реализовалась благодаря усилиям конструкторов, космонавтов и энтузиастов. Сегодня музей — один из крупнейших научно-технических музеев мира, хранящий подлинные экспонаты, связанные с историей ракетно-космической техники.</p>
+        <p>В фондах музея более 100 000 предметов. Среди них — спускаемый аппарат космического корабля «Восток», на котором Юрий Гагарин совершил первый полёт, скафандр Алексея Леонова, в котором он вышел в открытый космос, личные вещи Сергея Королёва, Владимира Челомея и других учёных.</p>
+
+        <h2 class="gradient-text mt-4">Экспозиции</h2>
+        <p>Музей разделён на восемь выставочных залов. В зале «Утро космической эры» представлены первые искусственные спутники Земли, собаки-космонавты Белка и Стрелка. Зал «Творцы космической техники» посвящён Королёву, Циолковскому, Глушко. В зале «Космонавтика — человечеству» можно увидеть образцы космического питания, системы жизнеобеспечения, макеты орбитальных станций. Отдельный зал рассказывает о международном сотрудничестве в космосе — советско-американская программа «Союз — Аполлон», совместные полёты с Францией, Германией, Китаем.</p>
+        <p>Особый интерес вызывает зал «Дом-музей Королёва» — филиал музея, расположенный в бывшей квартире главного конструктора. Там сохранены личные вещи, чертежи, библиотека и даже довоенный телефон.</p>
+        <p>В музее регулярно проводятся временные выставки, лекции, встречи с космонавтами. Для школьников работают интерактивные программы: «Космический рейс», «Школа юного космонавта», мастер-классы по сборке моделей ракет.</p>
+        <p><strong>Приходите в музей — здесь оживает история покорения Вселенной!</strong></p>
+    </div>
+</div>
+
+<h2 class="gradient-text mt-5">Фотогалерея</h2>
+<div class="row gy-4">
+    {% for img in gallery_images %}
+    <div class="col-md-3 col-sm-4 col-6">
+        <img src="{{ img.image.url }}" class="img-fluid holo-img" alt="{{ img.title }}" data-bs-toggle="modal" data-bs-target="#imageModal" data-img-url="{{ img.image.url }}">
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center">Фотографии загружаются. Зайдите в админку и добавьте изображения в раздел «Фотогалерея».</p>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('show.bs.modal', function(event) {
+            const img = event.relatedTarget;
+            const url = img.getAttribute('data-img-url');
+            document.getElementById('modalImage').src = url;
+        });
+    }
+</script>
+{% endblock %}
+{% endblock %}
